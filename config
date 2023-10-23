@@ -1,0 +1,63 @@
+general {
+
+	colors = true
+	color_good = "#a3be8c"
+	color_degraded = "#ebcb8b"
+	color_bad = "#bf616a"
+	interval = 1
+	separator = "|"
+}
+
+order += "cpu_usage"
+order += "load"
+order += "battery all"
+order += "disk /"
+order += "disk /data"
+order += "memory"
+order += "tztime local"
+
+cpu_usage {
+	format = "stress: %usage"
+}
+
+load {
+	format = "load %5min"
+}
+
+memory {
+	format = "%used"
+	threshold_degraded = "10%"
+	format_degraded = "MEMORY: %free"
+}
+
+tztime local {
+	format = "%Y-%m-%d %H:%M:%S"
+
+}	
+
+
+battery all {
+	path=/sys/class/power_supply/%d/uevent
+	format = "fuel: %percentage "
+}
+
+wireless __first__ {
+	format_up = "WLS: (%quality at %ssid) %ip"
+	format_down = "WLS: down"
+}
+
+ethernet enp0s31f6 {
+	format_up = "ETH: %ip (%speed)"
+	format_down = "ETH: down"
+}
+
+
+disk "/data" {
+	format = "/data: %free"
+}
+
+
+disk "/" {
+	format = "/: %free"
+}
+
